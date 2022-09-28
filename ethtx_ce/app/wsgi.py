@@ -30,11 +30,13 @@ ethtx_config = EthTxConfig(
     web3nodes={
         "mainnet": dict(hook=os.getenv("MAINNET_NODE_URL", ""), poa=False),
         "goerli": dict(hook=os.getenv("GOERLI_NODE_URL", ""), poa=True),
+        "bsc":dict(hook=os.getenv("BSC_NODE_URL"),poa=True)
     },
-    default_chain="mainnet",
+    default_chain="bsc",
     etherscan_urls={
         "mainnet": "https://api.etherscan.io/api",
         "goerli": "https://api-goerli.etherscan.io/api",
+        "bsc":"https://api.bscscan.com/api"
     },
 )
 

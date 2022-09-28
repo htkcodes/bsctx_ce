@@ -3,7 +3,7 @@
 </h1>
 <br/>
 <p align="center">
-    <em>Community version of EthTx transaction decoder</em>
+    <em>BSC fork of the Community version of EthTx transaction decoder</em>
 <br>
     <em><a href="https://ethtx.info">https://ethtx.info</a></em>
 </p>
@@ -25,6 +25,7 @@
 ---
 
 # Description
+BSC FORK
 
 This project represents usage of [EthTx](https://github.com/ethtx/ethtx) decoding library in form of a website. If you
 are looking for implementation of the said decoding functionalities, please refer

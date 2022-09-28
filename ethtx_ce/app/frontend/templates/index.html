@@ -16,189 +16,187 @@
 # the trademark and/or other branding elements.
   -->
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    {% include './partials/headtags.html' %}
-
-    <title>EthDecoder</title>
-    <style>
-        html {
-            height: 100vh;
-        }
-
-        body {
-            font-family: Hind, sans-serif;
-            font-size: 16px;
-            background-color: var(--background);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        form {
-            display: grid;
-            grid-gap: 25px;
-            margin-bottom: 16px;
-        }
-
-        label {
-            font-size: 22px;
-            font-weight: 500;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input[type=submit] {
-            background-color: var(--background-alt);
-            color: #fff;
-            border-radius: 3px;
-            font-size: 18px;
-            padding: 8px 64px;
-            cursor: pointer;
-            border: none;
-            line-height: 1.65;
-            margin: 0;
-            word-wrap: break-word;
-        }
-
-        .container {
-            max-width: 840px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .main-title {
-            font-size: 2.375rem;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .panel-container h2 {
-            font-size: 22px;
-            font-weight: 500;
-            margin: 0;
-            color: var(--text);
-        }
-
-        .input {
-            font-size: 18px;
-            width: 100%;
-            padding: 13px 16px;
-            box-sizing: border-box;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: transparent;
-        }
-
-        .select {
-            cursor: pointer;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background: url(/static/images/chevron_down.png) no-repeat right 13px center;
-        }
-
-        .tx-submit {
-            margin-top: .625rem;
-        }
-
-        .tx-submit input {
-            width: 14.375rem;
-        }
-
-        @media screen and (max-width: 568px) {
-            .container-title {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-
-        }
-
-        .error-msg {
-            color: #c00;
-            font-size: 12px;
-            margin-top: 5px;
-            position: absolute;
-        }
-
-        .container-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-    </style>
-</head>
-
-<body>
-<div class="container">
-    <div class="container-title">
-        <span class="main-title">EthTx Transaction Decoder</span>
-    </div>
-    <form action="/" method="GET" onsubmit="return onSubmit(this)">
-        <div>
-            <label for="net">Network</label>
-            <select class="input select" id="net">
-                {% for chain in chains %}
-                    {% if chain == 'mainnet' %}
-                    <option value="mainnet">ETH mainnet</option>
-                    {% else %}
-                    <option value="{{ chain }}">{{ chain|title + ' testnet' }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label for="tx">Tx Hash</label>
-            <input class="input" size="66" type="text" id="tx"
-                   oninput="handleValueChange()"
-                   onchange="handleValueChange()">
-            <div class="error-msg" id="error_hash"></div>
-        </div>
-        <div class="tx-submit">
-            <input id="tx_submit" type="submit" value="Decode now">
-        </div>
-    </form>
-</div>
-
-<script type="text/javascript">
-    function onSubmit(e) {
-        const tx = document.getElementById(`tx`).value;
-        if (!tx || checkTxHash(tx) === false) {
-            printError("error_hash", "Please, enter a valid transaction hash.")
-            return false;
-        } else {
-            window.onbeforeunload = function () {
-                document.getElementById("tx_submit").value = "Decoding...";
-            };
-            e.action = '/' + e.net.options[e.net.selectedIndex].value + '/' + e.tx.value;
-        }
-    }
-
-    function handleValueChange() {
-        hideError("error_hash")
-    }
-
-    function checkTxHash(tx) {
-        const pattern = new RegExp(/^(0x)?([A-Fa-f0-9]{64})$/)
-        return pattern.test(tx);
-    }
-
-    function printError(elemId, hintMsg) {
-        document.getElementById(elemId).innerHTML = hintMsg;
-    }
-
-    function hideError(elemId) {
-        document.getElementById(elemId).innerHTML = "";
-    }
-</script>
-</body>
-</html>
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+      {% include './partials/headtags.html' %}
+  
+      <title>EthDecoder</title>
+      <style>
+          html {
+              height: 100vh;
+          }
+  
+          body {
+              font-family: Hind, sans-serif;
+              font-size: 16px;
+              background-color: var(--background);
+              margin: 0;
+              padding: 0;
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+          }
+  
+          form {
+              display: grid;
+              grid-gap: 25px;
+              margin-bottom: 16px;
+          }
+  
+          label {
+              font-size: 22px;
+              font-weight: 500;
+              display: block;
+              margin-bottom: 8px;
+          }
+  
+          input[type=submit] {
+              background-color: var(--background-alt);
+              color: #fff;
+              border-radius: 3px;
+              font-size: 18px;
+              padding: 8px 64px;
+              cursor: pointer;
+              border: none;
+              line-height: 1.65;
+              margin: 0;
+              word-wrap: break-word;
+          }
+  
+          .container {
+              max-width: 840px;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              flex-grow: 1;
+          }
+  
+          .main-title {
+              font-size: 2.375rem;
+              margin-top: 30px;
+              margin-bottom: 30px;
+              font-weight: 700;
+              line-height: 1;
+          }
+  
+          .panel-container h2 {
+              font-size: 22px;
+              font-weight: 500;
+              margin: 0;
+              color: var(--text);
+          }
+  
+          .input {
+              font-size: 18px;
+              width: 100%;
+              padding: 13px 16px;
+              box-sizing: border-box;
+              border-radius: 6px;
+              border: 1px solid var(--border);
+              background-color: transparent;
+          }
+  
+          .select {
+              cursor: pointer;
+              -moz-appearance: none;
+              -webkit-appearance: none;
+              appearance: none;
+              background: url(/static/images/chevron_down.png) no-repeat right 13px center;
+          }
+  
+          .tx-submit {
+              margin-top: .625rem;
+          }
+  
+          .tx-submit input {
+              width: 14.375rem;
+          }
+  
+          @media screen and (max-width: 568px) {
+              .container-title {
+                  flex-direction: column;
+                  align-items: flex-start !important;
+              }
+  
+          }
+  
+          .error-msg {
+              color: #c00;
+              font-size: 12px;
+              margin-top: 5px;
+              position: absolute;
+          }
+  
+          .container-title {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 1rem;
+          }
+      </style>
+  </head>
+  
+  <body>
+  <div class="container">
+      <div class="container-title">
+          <span class="main-title">BscTx Transaction Decoder</span>
+      </div>
+      <form action="/" method="GET" onsubmit="return onSubmit(this)">
+          <div>
+              <label for="net">Network</label>
+              <select class="input select" id="net">
+                  {% for chain in chains %}
+                      {% if chain == 'bsc' %}
+                      <option value="bsc">BSC mainnet</option>
+                      {% endif %}
+                  {% endfor %}
+              </select>
+          </div>
+          <div>
+              <label for="tx">Tx Hash</label>
+              <input class="input" size="66" type="text" id="tx"
+                     oninput="handleValueChange()"
+                     onchange="handleValueChange()">
+              <div class="error-msg" id="error_hash"></div>
+          </div>
+          <div class="tx-submit">
+              <input id="tx_submit" type="submit" value="Decode now">
+          </div>
+      </form>
+  </div>
+  
+  <script type="text/javascript">
+      function onSubmit(e) {
+          const tx = document.getElementById(`tx`).value;
+          if (!tx || checkTxHash(tx) === false) {
+              printError("error_hash", "Please, enter a valid transaction hash.")
+              return false;
+          } else {
+              window.onbeforeunload = function () {
+                  document.getElementById("tx_submit").value = "Decoding...";
+              };
+              e.action = '/' + e.net.options[e.net.selectedIndex].value + '/' + e.tx.value;
+          }
+      }
+  
+      function handleValueChange() {
+          hideError("error_hash")
+      }
+  
+      function checkTxHash(tx) {
+          const pattern = new RegExp(/^(0x)?([A-Fa-f0-9]{64})$/)
+          return pattern.test(tx);
+      }
+  
+      function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+      }
+  
+      function hideError(elemId) {
+          document.getElementById(elemId).innerHTML = "";
+      }
+  </script>
+  </body>
+  </html>
