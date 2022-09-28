@@ -1,5 +1,5 @@
 <h1 align='center' style="border-bottom: none">
-  EthTx Community Edition
+  BscTx Community Edition
 </h1>
 <br/>
 <p align="center">
